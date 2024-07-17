@@ -54,4 +54,25 @@ public class AccountDAO implements AccountInterface{
         }
         return null;
     }
+
+    @Override
+    public Account getAccountById(int account_id) {
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String query = "select * from account where account_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, account_id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                return new Account(
+                    resultSet.getInt("account_id"), 
+                    resultSet.getString("username"), 
+                    resultSet.getString("password"));
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

@@ -18,6 +18,10 @@ public class SocialMediaController {
         Javalin app = Javalin.create();
         app.post("/register", AccountHandler.registerAccount);
         app.post("/login", AccountHandler.loginUser);
+        app.post("/messages", MessageHandler.createMessage);
+        app.get("/messages", MessageHandler.getAllMessages);
+        app.get("/messages/{message_id}", MessageHandler.getMessageByMessageId);
+        app.get("/accounts/{account_id}/messages", MessageHandler.registeredAccountMessages);
 
         return app;
 
