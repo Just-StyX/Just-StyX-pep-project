@@ -34,4 +34,24 @@ public class MessageHandler {
     public static Handler registeredAccountMessages = context -> {
         context.json(messageService.registeredUserMessages(Integer.valueOf(context.pathParam("account_id"))));
     };
+
+    public static Handler updateMessage = context -> {
+        String message_text = context.bodyAsClass(Message.class).getMessage_text();
+        var updatedMessage = messageService.updatMessageById(Integer.valueOf(context.pathParam("message_id")), message_text);
+
+        if (updatedMessage != null) {
+            context.json(updatedMessage);
+        } else {
+            context.status(400);
+        }
+    };
+
+    public static Handler deleteMessageByMessageId = context -> {
+        var message = messageService.deleteMessageById(Integer.valueOf(context.pathParam("message_id")));
+        if (message != null) {
+            context.json(message);
+        } else {
+            context.status(200);
+        }
+    };
 }

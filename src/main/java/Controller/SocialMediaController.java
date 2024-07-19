@@ -22,6 +22,8 @@ public class SocialMediaController {
         app.get("/messages", MessageHandler.getAllMessages);
         app.get("/messages/{message_id}", MessageHandler.getMessageByMessageId);
         app.get("/accounts/{account_id}/messages", MessageHandler.registeredAccountMessages);
+        app.patch("/messages/{message_id}", MessageHandler.updateMessage);
+        app.delete("/messages/{message_id}", MessageHandler.deleteMessageByMessageId);
 
         return app;
 

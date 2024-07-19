@@ -86,15 +86,33 @@ public class MessageDAO implements MessageInterface{
     }
 
     @Override
-    public Message deleteMessageById(int message_id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteMessageById'");
+    public void deleteMessageById(int message_id) {
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String query = "delete * from message where message_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, message_id);
+
+            preparedStatement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
-    public Message updatMessageByid(int message_id, String message_text) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updatMessageByid'");
+    public void updatMessageByid(int message_id, String message_text) {
+        Connection connection = ConnectionUtil.getConnection();
+        try {
+            String query = "update message set message_text = ? where message_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, message_text);
+            preparedStatement.setInt(2, message_id);
+
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

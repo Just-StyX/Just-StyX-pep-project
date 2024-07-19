@@ -37,4 +37,29 @@ public class MessageService {
     public List<Message> registeredUserMessages(int account_id) {
         return messageInterface.registeredUserMessages(account_id);
     }
+
+    public Message updatMessageById(int message_id, String message_text) {
+        if (!(message_text.isBlank() && message_text.isEmpty()) && message_text.length() <= 255) {
+            Message foundMessage = messageInterface.getMessageById(message_id);
+            if (foundMessage != null) {
+                messageInterface.updatMessageByid(message_id, message_text);
+                foundMessage.setMessage_text(message_text);
+                return foundMessage;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+    }
+
+    public Message deleteMessageById(int message_id) {
+        Message foundMessage = messageInterface.getMessageById(message_id);
+        if (foundMessage != null) {
+            messageInterface.deleteMessageById(message_id);
+            return foundMessage;
+        } else {
+            return null;
+        }
+    }
 }
